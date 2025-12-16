@@ -84,7 +84,7 @@ abstract class AbstractProduct
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'in_stock' => $this->inStock,
+            'inStock' => (bool) $this->inStock,
             'description' => $this->description,
             'brand' => $this->brand,
             'gallery' => $this->gallery,

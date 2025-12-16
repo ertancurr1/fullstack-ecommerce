@@ -33,16 +33,27 @@ class ProductRepository
 
     public function findByCategory(string $categoryName): array
     {
-        $sql = "
-            SELECT p.*, c.name as category_name
-            FROM products p
-            INNER JOIN categories c ON p.category_id = c.id
-            WHERE c.name = ? OR c.name = 'all'
-            ORDER BY p.name
-        ";
+        if ($categoryName === 'all') {
+            $sql = "
+                SELECT p.*, c.name as category_name
+                FROM products p
+                INNER JOIN categories c ON p.category_id = c.id
+                ORDER BY p.name
+            ";
+            
+            $results = $this->db->fetchAll($sql);
+        } else {
+            $sql = "
+                SELECT p.*, c.name as category_name
+                FROM products p
+                INNER JOIN categories c ON p.category_id = c.id
+                WHERE c.name = ?
+                ORDER BY p.name
+            ";
 
-        $results = $this->db->fetchAll($sql, [$categoryName]);
-
+            $results = $this->db->fetchAll($sql, [$categoryName]);
+        }
+    
         return array_map(fn($data) => $this->buildProduct($data), $results);
     }
 

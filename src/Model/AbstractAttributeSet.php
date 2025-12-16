@@ -42,7 +42,13 @@ abstract class AbstractAttributeSet
             'id' => $this->id,
             'name' => $this->name,
             'type' => $this->getType(),
-            'items' => $this->items,
+            'items' => array_map(function($item) {
+                return [
+                    'id' => $item['id'],
+                    'displayValue' => $item['display_value'],
+                    'value' => $item['value'],
+                ];
+            }, $this->items),
         ];
     }
 }
