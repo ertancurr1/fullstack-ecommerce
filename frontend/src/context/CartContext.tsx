@@ -29,6 +29,7 @@ interface CartContextType {
     selectedAttributes: Record<string, string>,
     quantity: number
   ) => void;
+  clearCart: () => void;
   toggleCart: () => void;
   closeCart: () => void;
   totalItems: number;
@@ -106,6 +107,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [removeFromCart]
   );
 
+  const clearCart = useCallback(() => setItems([]), []);
   const toggleCart = useCallback(() => setIsOpen((prev) => !prev), []);
   const closeCart = useCallback(() => setIsOpen(false), []);
 
@@ -123,6 +125,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         addToCart,
         removeFromCart,
         updateQuantity,
+        clearCart,
         toggleCart,
         closeCart,
         totalItems,
