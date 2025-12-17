@@ -2,16 +2,24 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+// Handle CORS preflight requests
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type');
+    header('Access-Control-Max-Age: 86400');
+    http_response_code(200);
+    exit;
+}
+
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->post('/graphql', [App\Controller\GraphQL::class, 'handle']);
 });
 
-// Extract the path after index.php
 $uri = $_SERVER['REQUEST_URI'];
 $scriptName = $_SERVER['SCRIPT_NAME'];
 $basePath = dirname($scriptName);
 
-// Remove base path and query string
 $path = parse_url($uri, PHP_URL_PATH);
 $path = str_replace($basePath, '', $path);
 $path = str_replace('/index.php', '', $path);
