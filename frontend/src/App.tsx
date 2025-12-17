@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import CartOverlay from "./components/CartOverlay";
 import ProductListingPage from "./pages/ProductListingPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import { CartProvider } from "./context/CartContext";
@@ -10,6 +11,7 @@ function App() {
     <CartProvider>
       <div className="app">
         <Header />
+        <CartOverlay />
         <main className="main">
           <Routes>
             <Route path="/" element={<ProductListingPage />} />
