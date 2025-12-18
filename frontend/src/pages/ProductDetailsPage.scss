@@ -2,11 +2,13 @@
   display: flex;
   gap: 100px;
   padding: 80px 100px;
+  max-width: 1440px;
+  margin: 0 auto;
 
   &__gallery {
     display: flex;
     gap: 40px;
-    flex: 1;
+    flex-shrink: 0;
   }
 
   &__thumbnails {
@@ -32,8 +34,7 @@
 
   &__main-image {
     position: relative;
-    flex: 1;
-    max-width: 610px;
+    width: 610px;
 
     img {
       width: 100%;
@@ -91,6 +92,15 @@
 
   &__attribute {
     margin-bottom: 24px;
+  }
+
+  &__attribute-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1d1f22;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+    font-family: "Roboto Condensed", sans-serif;
   }
 
   &__attribute-items {
