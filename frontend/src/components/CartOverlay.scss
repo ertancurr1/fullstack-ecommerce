@@ -16,6 +16,7 @@
     width: 325px;
     max-height: calc(100vh - 80px);
     overflow-y: auto;
+    height: fit-content;
   }
 
   &__title {
@@ -44,7 +45,7 @@
     font-weight: 500;
     color: #1d1f22;
     margin-bottom: 32px;
-    font-family: "Robot", sans-serif;
+    font-family: "Roboto", sans-serif;
   }
 
   &__total-value {
@@ -71,6 +72,13 @@
       background: #8d8f9a;
       cursor: not-allowed;
     }
+  }
+
+  &__empty {
+    font-size: 16px;
+    color: #8d8f9a;
+    text-align: center;
+    padding: 40px 0;
   }
 }
 
@@ -191,11 +199,4 @@
       object-fit: contain;
     }
   }
-}
-
-.cart-overlay__empty {
-  font-size: 16px;
-  color: #8d8f9a;
-  text-align: center;
-  padding: 40px 0;
 }

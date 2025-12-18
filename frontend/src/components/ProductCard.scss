@@ -28,7 +28,7 @@
     width: 100%;
     aspect-ratio: 1;
     margin-bottom: 24px;
-    overflow: hidden;
+    overflow: visible;
   }
 
   &__image {
@@ -53,7 +53,7 @@
 
   &__quick-add {
     position: absolute;
-    bottom: -20px;
+    bottom: -26px;
     right: 16px;
     width: 52px;
     height: 52px;
@@ -67,6 +67,7 @@
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.3s ease;
+    box-shadow: 0 4px 11px rgba(29, 31, 34, 0.1);
 
     &:hover {
       background: #4db86a;
@@ -77,7 +78,8 @@
     font-size: 18px;
     font-weight: 300;
     color: #1d1f22;
-    margin: 0 0 8px;
+    margin: 0 0 4px;
+    line-height: 1.6;
   }
 
   &__price {

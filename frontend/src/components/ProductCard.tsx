@@ -54,7 +54,13 @@ function ProductCard({ product }: ProductCardProps) {
             onClick={handleQuickAdd}
             aria-label="Add to cart"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M4 4H5.62L8.06 12.53C8.12 12.76 8.33 12.92 8.57 12.92H15.5C15.73 12.92 15.94 12.77 16 12.56L17.85 6.48C17.93 6.21 17.72 5.95 17.45 5.95H6.5"
                 stroke="#fff"
