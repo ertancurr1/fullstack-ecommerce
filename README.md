@@ -230,6 +230,25 @@ private static array $categoryMap = [
 7. Adjust quantities or remove items
 8. Place an order
 
+## 🚀 Deployment
+
+This project is ready for **100% FREE deployment** using:
+- **Backend**: InfinityFree (PHP + MySQL)
+- **Frontend**: Vercel (React + Vite)
+
+### Quick Deploy
+1. **Backend**: Sign up at [infinityfree.com](https://infinityfree.com), upload files, create database
+2. **Frontend**: Push to GitHub, deploy to [vercel.com](https://vercel.com)
+
+### Documentation
+- **[DEPLOYMENT-SUMMARY.md](DEPLOYMENT-SUMMARY.md)** - Start here! Quick overview and next steps
+- **[QUICK-START-DEPLOYMENT.md](QUICK-START-DEPLOYMENT.md)** - TL;DR deployment steps
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Complete step-by-step guide
+- **[INFINITYFREE-NOTES.md](INFINITYFREE-NOTES.md)** - InfinityFree-specific tips
+- **[DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md)** - Track your deployment progress
+
+**Total Cost**: $0/month 🎉
+
 ## 📄 License
 
 This project is open source and available for learning purposes.
