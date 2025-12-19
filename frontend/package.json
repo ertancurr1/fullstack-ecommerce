@@ -17,6 +17,10 @@
     "react-router-dom": "^7.10.1",
     "sass": "^1.97.0"
   },
+  "overrides": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@types/node": "^24.10.1",
