@@ -6,7 +6,7 @@ import App from "./App";
 import "./index.css";
 
 const client = new ApolloClient({
-  uri: "http://localhost/fullstack-ecommerce/public/index.php/graphql",
+  uri: import.meta.env.VITE_API_URL || "http://localhost/fullstack-ecommerce/public/index.php/graphql",
   cache: new InMemoryCache(),
 });
 

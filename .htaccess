@@ -1,0 +1,3 @@
+# Root .htaccess - Redirects to public directory
+RewriteEngine On
+RewriteRule ^(.*)$ public/$1 [L]

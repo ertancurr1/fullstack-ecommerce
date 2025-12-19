@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 
 const httpLink = new HttpLink({
-  uri: "http://localhost/fullstack-ecommerce/public/index.php/graphql",
+  uri: import.meta.env.VITE_API_URL || "http://localhost/fullstack-ecommerce/public/index.php/graphql",
 });
 
 const client = new ApolloClient({
