@@ -17,6 +17,14 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->get('/', function() {
         return json_encode(['status' => 'OK', 'message' => 'GraphQL API is running. Send POST requests to /graphql']);
     });
+    $r->get('/debug', function() {
+        return json_encode([
+            'SERVER' => $_SERVER,
+            'cwd' => getcwd(),
+            'files' => scandir(__DIR__),
+            'router_exists' => file_exists(__DIR__ . '/router.php')
+        ]);
+    });
 });
 
 $uri = $_SERVER['REQUEST_URI'];
