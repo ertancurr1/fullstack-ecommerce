@@ -13,7 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
-    $r->post('/graphql', [App\Controller\GraphQL::class, 'handle']);
+    $r->addRoute(['GET', 'POST'], '/graphql', [App\Controller\GraphQL::class, 'handle']);
+    $r->get('/', function() {
+        return json_encode(['status' => 'OK', 'message' => 'GraphQL API is running. Send POST requests to /graphql']);
+    });
 });
 
 $uri = $_SERVER['REQUEST_URI'];
