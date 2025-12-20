@@ -1,25 +1,14 @@
 <?php
 
-// Early debug endpoint - before anything else
-if ($_SERVER['REQUEST_URI'] === '/test' || strpos($_SERVER['REQUEST_URI'], '/test') === 0) {
-    header('Content-Type: application/json');
-    echo json_encode([
-        'working' => true,
-        'REQUEST_URI' => $_SERVER['REQUEST_URI'],
-        'SCRIPT_NAME' => $_SERVER['SCRIPT_NAME'] ?? null,
-        'PHP_SELF' => $_SERVER['PHP_SELF'] ?? null,
-        'path_parsed' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH),
-    ]);
-    exit;
-}
-
 require_once __DIR__ . '/../vendor/autoload.php';
+
+// Set CORS headers for all requests
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
 
 // Handle CORS preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-    header('Access-Control-Allow-Headers: Content-Type');
     header('Access-Control-Max-Age: 86400');
     http_response_code(200);
     exit;
