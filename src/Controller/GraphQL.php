@@ -21,15 +21,29 @@ class GraphQL
                 return json_encode(['status' => 'ok']);
             }
 
-            $rawInput = file_get_contents('php://input');
-            
-            if (empty($rawInput)) {
-                throw new RuntimeException('Empty request body');
-            }
+            // Handle GET requests (for testing/introspection)
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                if (isset($_GET['query'])) {
+                    $query = $_GET['query'];
+                    $variables = isset($_GET['variables']) ? json_decode($_GET['variables'], true) : null;
+                } else {
+                    return json_encode([
+                        'status' => 'ready',
+                        'message' => 'GraphQL endpoint is ready. Send POST requests with a query in the body.'
+                    ]);
+                }
+            } else {
+                // Handle POST requests
+                $rawInput = file_get_contents('php://input');
 
-            $input = json_decode($rawInput, true);
-            $query = $input['query'] ?? '';
-            $variables = $input['variables'] ?? null;
+                if (empty($rawInput)) {
+                    throw new RuntimeException('Empty request body');
+                }
+
+                $input = json_decode($rawInput, true);
+                $query = $input['query'] ?? '';
+                $variables = $input['variables'] ?? null;
+            }
 
             $schema = \App\GraphQL\Schema::build();
             $result = GraphQLBase::executeQuery($schema, $query, null, null, $variables);
