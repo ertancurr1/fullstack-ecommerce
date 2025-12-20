@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_URI'] === '/test' || strpos($_SERVER['REQUEST_URI'], '/tes
     exit;
 }
 
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // Handle CORS preflight requests
@@ -42,12 +41,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
 });
 
 $uri = $_SERVER['REQUEST_URI'];
-$scriptName = $_SERVER['SCRIPT_NAME'];
-$basePath = dirname($scriptName);
-
 $path = parse_url($uri, PHP_URL_PATH);
-$path = str_replace($basePath, '', $path);
-$path = str_replace('/index.php', '', $path);
 $path = $path ?: '/';
 
 $routeInfo = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], $path);
@@ -64,6 +58,10 @@ switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::FOUND:
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
-        echo $handler($vars);
+        if (is_array($handler)) {
+            echo call_user_func($handler, $vars);
+        } else {
+            echo $handler($vars);
+        }
         break;
 }
