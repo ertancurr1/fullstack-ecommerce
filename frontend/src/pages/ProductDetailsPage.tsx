@@ -44,7 +44,10 @@ function ProductDetailsPage() {
   const price = product.prices[0];
 
   return (
-    <div className="pdp">
+    <div
+      className="pdp"
+      data-testid={`product-${product.name.toLowerCase().replace(/\s+/g, "-")}`}
+    >
       <div className="pdp__gallery">
         <div className="pdp__thumbnails" data-testid="product-gallery">
           {product.gallery.map((image, index) => (
