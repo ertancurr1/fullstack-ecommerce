@@ -12,20 +12,22 @@ function Header() {
   return (
     <header className="header">
       <nav className="header__nav">
-        {data?.categories.map((category: Category) => (
-          <NavLink
-            key={category.name}
-            to={category.name === "all" ? "/" : `/${category.name}`}
-            className={({ isActive }: { isActive: boolean }) =>
-              `header__nav-link ${isActive ? "active" : ""}`
-            }
-            data-testid={({ isActive }: { isActive: boolean }) =>
-              isActive ? "active-category-link" : "category-link"
-            }
-          >
-            {category.name.toUpperCase()}
-          </NavLink>
-        ))}
+        <nav className="header__nav">
+          {data?.categories.map((category: Category) => (
+            <NavLink
+              key={category.name}
+              to={`/${category.name}`}
+              className={({ isActive }: { isActive: boolean }) =>
+                `header__nav-link ${isActive ? "header__nav-link--active" : ""}`
+              }
+              data-testid={({ isActive }: { isActive: boolean }) =>
+                isActive ? "active-category-link" : "category-link"
+              }
+            >
+              {category.name.toUpperCase()}
+            </NavLink>
+          ))}
+        </nav>
       </nav>
 
       <div className="header__logo">
