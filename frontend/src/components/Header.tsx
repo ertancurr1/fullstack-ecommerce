@@ -16,13 +16,11 @@ function Header() {
           <NavLink
             key={category.name}
             to={`/${category.name}`}
-            className={({ isActive }) =>
+            className={({ isActive }: { isActive: boolean }) =>
               `header__nav-link ${isActive ? "header__nav-link--active" : ""}`
             }
-            data-testid={
-              category.name === "all"
-                ? "active-category-link"
-                : `category-link-${category.name}`
+            data-testid={({ isActive }: { isActive: boolean }) =>
+              isActive ? "active-category-link" : "category-link"
             }
           >
             {category.name.toUpperCase()}

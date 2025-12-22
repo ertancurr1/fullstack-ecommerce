@@ -15,6 +15,7 @@ function App() {
         <main className="main">
           <Routes>
             <Route path="/" element={<ProductListingPage />} />
+            <Route path="/all" element={<ProductListingPage />} />
             <Route path="/:category" element={<ProductListingPage />} />
             <Route
               path="/product/:productId"

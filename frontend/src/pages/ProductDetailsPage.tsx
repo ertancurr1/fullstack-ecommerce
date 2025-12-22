@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import parse from "html-react-parser";
 import { useQuery } from "@apollo/client";
 import { GET_PRODUCT } from "../graphql/queries";
 import { useCart } from "../context/CartContext";
@@ -97,56 +98,56 @@ function ProductDetailsPage() {
         <h1 className="pdp__brand">{product.brand}</h1>
         <h2 className="pdp__name">{product.name}</h2>
 
-        {product.attributes.map((attribute: AttributeSet) => (
-          <div
-            key={attribute.id}
-            className="pdp__attribute"
-            data-testid={`product-attribute-${attribute.id
-              .toLowerCase()
-              .replace(/\s+/g, "-")}`}
-          >
-            <h3 className="pdp__attribute-name">{attribute.name}:</h3>
-            <div className="pdp__attribute-items">
-              {attribute.items.map((item) => {
-                const isSelected = selectedAttributes[attribute.id] === item.id;
+        {product.attributes.map((attribute: AttributeSet) => {
+          const attributeKebab = attribute.name
+            .toLowerCase()
+            .replace(/\s+/g, "-");
 
-                if (attribute.type === "swatch") {
+          return (
+            <div
+              key={attribute.id}
+              className="pdp__attribute"
+              data-testid={`product-attribute-${attributeKebab}`}
+            >
+              <h3 className="pdp__attribute-name">{attribute.name}:</h3>
+              <div className="pdp__attribute-items">
+                {attribute.items.map((item) => {
+                  const isSelected =
+                    selectedAttributes[attribute.id] === item.id;
+                  const commonProps = {
+                    key: item.id,
+                    onClick: () => handleAttributeSelect(attribute.id, item.id),
+                    "data-testid": `product-attribute-${attributeKebab}-${item.id}`,
+                  };
+
+                  if (attribute.type === "swatch") {
+                    return (
+                      <button
+                        {...commonProps}
+                        className={`pdp__swatch ${
+                          isSelected ? "pdp__swatch--selected" : ""
+                        }`}
+                        style={{ backgroundColor: item.value }}
+                        title={item.displayValue}
+                      />
+                    );
+                  }
+
                   return (
                     <button
-                      key={item.id}
-                      className={`pdp__swatch ${
-                        isSelected ? "pdp__swatch--selected" : ""
+                      {...commonProps}
+                      className={`pdp__text-option ${
+                        isSelected ? "pdp__text-option--selected" : ""
                       }`}
-                      style={{ backgroundColor: item.value }}
-                      onClick={() =>
-                        handleAttributeSelect(attribute.id, item.id)
-                      }
-                      title={item.displayValue}
-                      data-testid={`product-attribute-${attribute.id
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}-${item.id}`}
-                    />
+                    >
+                      {item.displayValue}
+                    </button>
                   );
-                }
-
-                return (
-                  <button
-                    key={item.id}
-                    className={`pdp__text-option ${
-                      isSelected ? "pdp__text-option--selected" : ""
-                    }`}
-                    onClick={() => handleAttributeSelect(attribute.id, item.id)}
-                    data-testid={`product-attribute-${attribute.id
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}-${item.id}`}
-                  >
-                    {item.displayValue}
-                  </button>
-                );
-              })}
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         <div className="pdp__price">
           <h3 className="pdp__price-label">PRICE:</h3>
@@ -173,11 +174,9 @@ function ProductDetailsPage() {
           {product.inStock ? "ADD TO CART" : "OUT OF STOCK"}
         </button>
 
-        <div
-          className="pdp__description"
-          data-testid="product-description"
-          dangerouslySetInnerHTML={{ __html: product.description }}
-        />
+        <div className="pdp__description" data-testid="product-description">
+          {parse(product.description)}
+        </div>
       </div>
     </div>
   );

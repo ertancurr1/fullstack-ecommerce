@@ -31,13 +31,15 @@ function ProductCard({ product }: ProductCardProps) {
 
   const price = product.prices[0];
 
+  const kebabName = product.name.toLowerCase().replace(/\s+/g, "-");
+
   return (
     <div
       className={`product-card ${
         !product.inStock ? "product-card--out-of-stock" : ""
       }`}
       onClick={handleClick}
-      data-testid={`product-${product.id.toLowerCase().replace(/\s+/g, "-")}`}
+      data-testid={`product-${kebabName}`}
     >
       <div className="product-card__image-wrapper">
         <img
