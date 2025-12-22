@@ -37,7 +37,7 @@ function ProductCard({ product }: ProductCardProps) {
         !product.inStock ? "product-card--out-of-stock" : ""
       }`}
       onClick={handleClick}
-      data-testid={`product-${product.id}`}
+      data-testid={`product-${product.id.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div className="product-card__image-wrapper">
         <img

@@ -15,7 +15,7 @@ function Header() {
         {data?.categories.map((category: Category) => (
           <NavLink
             key={category.name}
-            to={category.name === "all" ? "/" : `/${category.name}`}
+            to={`/${category.name}`}
             className={({ isActive }) =>
               `header__nav-link ${isActive ? "header__nav-link--active" : ""}`
             }
