@@ -83,6 +83,15 @@ function CartOverlay() {
                           {attr.items.map((attrItem) => {
                             const isSelected =
                               item.selectedAttributes[attr.id] === attrItem.id;
+                            const attrNameKebab = attr.name
+                              .toLowerCase()
+                              .replace(/\s+/g, "-");
+                            const attrValueKebab = attrItem.displayValue
+                              .toLowerCase()
+                              .replace(/\s+/g, "-");
+                            const testId = `cart-item-attribute-${attrNameKebab}-${attrValueKebab}${
+                              isSelected ? "-selected" : ""
+                            }`;
 
                             if (attr.type === "swatch") {
                               return (
@@ -93,12 +102,8 @@ function CartOverlay() {
                                       ? "cart-item__swatch--selected"
                                       : ""
                                   }`}
+                                  data-testid={testId}
                                   style={{ backgroundColor: attrItem.value }}
-                                  data-testid={`cart-item-attribute-${attr.id
-                                    .toLowerCase()
-                                    .replace(/\s+/g, "-")}-${attrItem.id}${
-                                    isSelected ? "-selected" : ""
-                                  }`}
                                 />
                               );
                             }

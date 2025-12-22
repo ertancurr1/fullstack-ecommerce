@@ -9,7 +9,7 @@ import "./ProductDetailsPage.scss";
 
 function ProductDetailsPage() {
   const { productId } = useParams<{ productId: string }>();
-  const { addToCart } = useCart();
+  const { addToCart, toggleCart, isOpen } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedAttributes, setSelectedAttributes] = useState<
     Record<string, string>
@@ -39,7 +39,12 @@ function ProductDetailsPage() {
   const handleAddToCart = () => {
     if (!product.inStock) return;
     if (!allAttributesSelected && product.attributes.length > 0) return;
+
     addToCart(product, selectedAttributes);
+
+    if (!isOpen) {
+      toggleCart();
+    }
   };
 
   const price = product.prices[0];
