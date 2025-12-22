@@ -13,20 +13,26 @@ function Header() {
     <header className="header">
       <nav className="header__nav">
         <nav className="header__nav">
-          {data?.categories.map((category: Category) => (
-            <NavLink
-              key={category.name}
-              to={`/${category.name}`}
-              className={({ isActive }: { isActive: boolean }) =>
-                `header__nav-link ${isActive ? "header__nav-link--active" : ""}`
-              }
-              data-testid={({ isActive }: { isActive: boolean }) =>
-                isActive ? "active-category-link" : "category-link"
-              }
-            >
-              {category.name.toUpperCase()}
-            </NavLink>
-          ))}
+          {data?.categories.map((category: Category) => {
+            const isAll = category.name === "all";
+            return (
+              <NavLink
+                key={category.name}
+                to={isAll ? "/" : `/${category.name}`}
+                className={({ isActive }: { isActive: boolean }) =>
+                  `header__nav-link ${
+                    isActive ? "header__nav-link--active" : ""
+                  }`
+                }
+                data-testid={({ isActive }: { isActive: boolean }) =>
+                  isActive ? "active-category-link" : "category-link"
+                }
+                end={isAll}
+              >
+                {category.name.toUpperCase()}
+              </NavLink>
+            );
+          })}
         </nav>
       </nav>
 
