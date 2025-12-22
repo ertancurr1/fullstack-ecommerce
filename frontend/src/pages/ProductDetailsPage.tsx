@@ -114,10 +114,17 @@ function ProductDetailsPage() {
                 {attribute.items.map((item) => {
                   const isSelected =
                     selectedAttributes[attribute.id] === item.id;
+                  const attributeKebab = attribute.name
+                    .toLowerCase()
+                    .replace(/\s+/g, "-");
+                  const itemTestId = `product-attribute-${attributeKebab}-${item.displayValue.replace(
+                    /\s+/g,
+                    "-"
+                  )}`;
                   const commonProps = {
                     key: item.id,
                     onClick: () => handleAttributeSelect(attribute.id, item.id),
-                    "data-testid": `product-attribute-${attributeKebab}-${item.id}`,
+                    "data-testid": itemTestId,
                   };
 
                   if (attribute.type === "swatch") {
