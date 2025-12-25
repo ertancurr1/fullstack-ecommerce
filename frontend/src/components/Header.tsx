@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_CATEGORIES } from "../graphql/queries";
 import { useCart } from "../context/CartContext";
@@ -8,30 +8,31 @@ import "./Header.scss";
 function Header() {
   const { data } = useQuery<{ categories: Category[] }>(GET_CATEGORIES);
   const { totalItems, toggleCart } = useCart();
+  const location = useLocation();
+
+  const isActiveCategory = (categoryName: string) => {
+    return location.pathname === `/${categoryName}`;
+  };
 
   return (
     <header className="header">
       <nav className="header__nav">
-        <nav className="header__nav">
-          {data?.categories.map((category: Category) => {
-            return (
-              <NavLink
-                key={category.name}
-                to={`/${category.name}`}
-                className={({ isActive }: { isActive: boolean }) =>
-                  `header__nav-link ${
-                    isActive ? "header__nav-link--active" : ""
-                  }`
-                }
-                data-testid={({ isActive }: { isActive: boolean }) =>
-                  isActive ? "active-category-link" : "category-link"
-                }
-              >
-                {category.name.toUpperCase()}
-              </NavLink>
-            );
-          })}
-        </nav>
+        {data?.categories.map((category: Category) => (
+          <NavLink
+            key={category.name}
+            to={`/${category.name}`}
+            className={({ isActive }: { isActive: boolean }) =>
+              `header__nav-link ${isActive ? "header__nav-link--active" : ""}`
+            }
+            data-testid={
+              isActiveCategory(category.name)
+                ? "active-category-link"
+                : "category-link"
+            }
+          >
+            {category.name.toUpperCase()}
+          </NavLink>
+        ))}
       </nav>
 
       <div className="header__logo">
