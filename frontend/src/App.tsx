@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import CartOverlay from "./components/CartOverlay";
 import ProductListingPage from "./pages/ProductListingPage";
@@ -14,8 +14,7 @@ function App() {
         <CartOverlay />
         <main className="main">
           <Routes>
-            <Route path="/" element={<ProductListingPage />} />
-            <Route path="/all" element={<ProductListingPage />} />
+            <Route path="/" element={<Navigate to="/all" replace />} />
             <Route path="/:category" element={<ProductListingPage />} />
             <Route
               path="/product/:productId"
